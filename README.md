@@ -8,26 +8,26 @@ License: MIT
 
 ## Table of Contents
 
-- Introduction
-- What is ModelAnalyzer?
-- How It Works
-- Installation
-- Basic Usage
-- HuggingFace Token Configuration
-- Command-Line Parameters
-- Output and Results
-- Advanced Usage Examples
-- Troubleshooting
-- Technical Details
-- FAQ
-- Appendix
+- 1.  Introduction
+- 2.  What is ModelAnalyzer?
+- 3.  How It Works
+- 4.  Installation
+- 5.  Basic Usage
+- 6.  HuggingFace Token Configuration
+- 7.  Command-Line Parameters
+- 8.  Output and Results
+- 9.  Advanced Usage Examples
+- 10. Troubleshooting
+- 11. Technical Details
+- 12. FAQ
+- 13. Appendix
 
 
 ## 1. Introduction
 
 ModelAnalyzer is a comprehensive command-line tool for analyzing transformer-based language models from the HuggingFace Hub. It provides detailed insights into model architecture, memory requirements, capabilities, and more—without downloading the full model weights.
 
-Key Features
+### Key Features
 
 - 🔍 Deep Architecture Analysis - Extract detailed model configuration
 - 💾 Memory Estimation - Calculate memory requirements for inference and training
@@ -74,6 +74,7 @@ ModelAnalyzer helps researchers, engineers, and ML practitioners understand tran
 ## 3. How It Works
 
 ### Architecture
+```
 ┌─────────────────────────────────────────────────────────────┐
 │                    ModelAnalyzer v2.0.2                     │
 └─────────────────────────────────────────────────────────────┘
@@ -123,6 +124,7 @@ ModelAnalyzer helps researchers, engineers, and ML practitioners understand tran
 - Parameter Calculation - Computes total parameters based on architecture
 - Memory Estimation - Calculates memory for different precisions
 - Output Formatting - Presents results in requested format
+```
 
 ### Supported Model Families
 
@@ -254,8 +256,9 @@ Operating System: Linux, macOS, or Windows
 Internet Connection: Required for accessing HuggingFace Hub
 
 Step 1: Install Python Dependencies
+
 Option A: Using pip (Recommended)
-# Install required packages
+#Install required packages
 pip install transformers huggingface-hub
 
 #Optional: Install visualization support
@@ -351,6 +354,7 @@ Example: Analyzing GPT-2 XL
 python modelanalyzer.py gpt2-xl
 
 Output:
+```
 ================================================================================
 🔍 Analyzing Model: gpt2-xl
 ================================================================================
@@ -399,9 +403,9 @@ Tokenizer:
   Chat Template:     No
 
 ================================================================================
+```
 
-
-6. HuggingFace Token Configuration
+## 6. HuggingFace Token Configuration
 When Do You Need a Token?
 A HuggingFace token is required for:
 
@@ -797,6 +801,7 @@ Summary Output (Default)
 python modelanalyzer.py gpt2-xl
 
 Output Structure:
+```
 ================================================================================
 📊 MODEL SUMMARY: gpt2-xl
 ================================================================================
@@ -826,11 +831,13 @@ Tokenizer:
   Chat Template:     No
 
 ================================================================================
+```
 
 ### Detailed Output
 python modelanalyzer.py gpt2-xl --detailed
 
 Output Structure:
+```
 ================================================================================
 📊 DETAILED MODEL ANALYSIS: gpt2-xl
 ================================================================================
@@ -916,11 +923,14 @@ License:             mit
 Model Size:          6.03 GB
 
 ================================================================================
+```
 
 #### JSON Export
+
 python modelanalyzer.py gpt2 --export gpt2_analysis.json
 
 File Structure:
+```
 {
   "model_id": "gpt2",
   "model_family": "gpt2",
@@ -977,6 +987,7 @@ File Structure:
   },
   "analysis_timestamp": "2026-02-20T08:33:15.123456Z"
 }
+```
 
 #### Markdown Export
 python modelanalyzer.py gpt2 --export-markdown gpt2_analysis.md
@@ -1123,6 +1134,7 @@ Training (Adam): Includes Adam optimizer states (momentum + variance)
 ## 9. Advanced Usage Examples
 Example 1: Comparing Multiple Models
 Scenario: Compare GPT-2 variants to choose the right size
+```bash
 #!/bin/bash
 # compare_gpt2.sh
 
@@ -1136,13 +1148,17 @@ for model in "${models[@]}"; do
 done
 
 echo "Analysis complete! Results in results/"
+```
 
 Output:
+
+```
 results/
 ├── gpt2.json          (124M params, 0.46 GB)
 ├── gpt2-medium.json   (355M params, 1.32 GB)
 ├── gpt2-large.json    (774M params, 2.87 GB)
 └── gpt2-xl.json       (1.56B params, 5.78 GB)
+```
 
 Example 2: Analyzing LLaMA Models
 Scenario: Analyze LLaMA 2 with full documentation
@@ -1182,6 +1198,7 @@ python modelanalyzer.py mistralai/Mixtral-8x7B-v0.1 \
     --export mixtral_analysis.json
 
 Key Output:
+```
 ================================================================================
 MIXTURE OF EXPERTS
 ================================================================================
@@ -1276,16 +1293,18 @@ ls -lh "$OUTPUT_DIR/"
 ```
 
 Output Structure:
+```
 docs/mistral-7b/
 ├── analysis.txt              ← Detailed text output
 ├── config.json               ← Machine-readable config
 ├── README.md                 ← Human-readable report
 ├── architecture_detailed.png ← Detailed diagram
 └── architecture_simple.png   ← Simple diagram
+```
 
 Example 6: Analyzing Quantized Models
 Scenario: Compare quantized versions
-# `Analyze base model
+#Analyze base model
 python modelanalyzer.py TheBloke/Llama-2-7B-GPTQ \
     --detailed \
     --export llama2_gptq.json
@@ -1304,6 +1323,7 @@ Scenario: Determine if model fits on your GPU
 python modelanalyzer.py meta-llama/Llama-2-13b-hf --detailed | grep -A 10 "MEMORY"
 
 Output:
+```
 MEMORY ESTIMATES
 ================================================================================
 Parameters:
@@ -1320,6 +1340,7 @@ Decision:
 24GB GPU: Use INT8 quantization
 16GB GPU: Use INT4 quantization
 80GB GPU: Can use FP16
+``` 
 
 Example 8: Python Integration
 
@@ -1405,13 +1426,14 @@ Analyzing gpt2-large...
 Analyzing gpt2-xl...
 
 Comparison:
+```
 Model                                    Parameters      Memory (FP16)   Max Context    
 -------------------------------------------------------------------------------------
 gpt2                                     124,439,808     0.23            1,024          
 gpt2-medium                              354,823,168     0.66            1,024          
 gpt2-large                               774,030,080     1.44            1,024          
 gpt2-xl                                  1,557,611,200   2.89            1,024          
-
+```
 
 ## 10. Troubleshooting
 
