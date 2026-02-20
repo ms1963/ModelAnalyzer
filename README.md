@@ -548,6 +548,8 @@ Cons:
 - Hardcode tokens in scripts
 
 Example: Analyzing Gated Model
+
+
 #Step 1: Accept license at https://huggingface.co/meta-llama/Llama-2-7b-hf
 
 #Step 2: Login with HuggingFace CLI
@@ -695,6 +697,7 @@ python modelanalyzer.py gpt2 \
     --visualize \
     --viz-style detailed \
     --viz-output gpt2_detailed.png
+    
 
 #### Performance Options
 
