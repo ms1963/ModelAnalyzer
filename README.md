@@ -410,24 +410,24 @@ Tokenizer:
 ### When Do You Need a Token?
 A HuggingFace token is required for:
 
-- Gated Models - Models requiring license acceptance
+#### Gated Models - Models requiring license acceptance
 
-LLaMA 2, LLaMA 3
-Some Mistral models
-Gemma models
-Other restricted models
+- LLaMA 2, LLaMA 3
+- Some Mistral models
+- Gemma models
+- Other restricted models
 
 
-- Private Models - Your own private repositories
+#### Private Models - Your own private repositories
 
-- Rate Limiting - Higher API rate limits with authentication
+#### Rate Limiting - Higher API rate limits with authentication
 
 
 ### When You DON'T Need a Token
 
-Public models (GPT-2, BERT, T5, etc.)
-Most open-source models
-Community models without restrictions
+- Public models (GPT-2, BERT, T5, etc.)
+- Most open-source models
+- Community models without restrictions
 
 ### How to Get a Token
 
@@ -1065,7 +1065,9 @@ MoE configuration (if applicable)
 
 
 Understanding the Output
+
 Parameter Count
+
 What it means:
 
 Total number of trainable weights in the model
@@ -1306,6 +1308,7 @@ docs/mistral-7b/
 
 Example 6: Analyzing Quantized Models
 Scenario: Compare quantized versions
+```
 #Analyze base model
 python modelanalyzer.py TheBloke/Llama-2-7B-GPTQ \
     --detailed \
@@ -1313,15 +1316,20 @@ python modelanalyzer.py TheBloke/Llama-2-7B-GPTQ \
 
 #Check quantization info
 python modelanalyzer.py TheBloke/Llama-2-7B-GPTQ | grep -A 5 "Quantization"
+```
 
 Output:
+```
 Quantization:
   Type:              gptq
   Bits:              4
+```
 
 Example 7: Resource Planning
+
 Scenario: Determine if model fits on your GPU
-# Analyze model
+
+#Analyze model
 python modelanalyzer.py meta-llama/Llama-2-13b-hf --detailed | grep -A 10 "MEMORY"
 
 Output:
@@ -1422,10 +1430,12 @@ Run:
 python analyze_models.py
 
 Output:
+```
 Analyzing gpt2...
 Analyzing gpt2-medium...
 Analyzing gpt2-large...
 Analyzing gpt2-xl...
+```
 
 Comparison:
 ```
@@ -1450,7 +1460,10 @@ Troubleshooting:
   3. Check model exists on HuggingFace Hub
   4. For gated models, provide --token
 
+
 Solutions:
+
+
 ##### A. Check Model ID
 #Wrong
 python modelanalyzer.py gpt-2  # Hyphen instead of number
@@ -1475,11 +1488,15 @@ curl -I https://huggingface.co/gpt2/resolve/main/config.json
 python modelanalyzer.py meta-llama/Llama-2-7b-hf --token hf_YourToken
 
 #### Issue 2: "Tokenizer unavailable"
+
 Symptoms:
 ⚠️  1 warning(s):
   - Tokenizer loading failed: ...
 
+
 Solutions:
+
+
 ##### A. Skip Tokenizer (if not needed)
 python modelanalyzer.py model --skip-tokenizer
 
@@ -1495,7 +1512,10 @@ pip install --upgrade transformers
 Symptoms:
 ⚠️  Rate limited by API
 
+
 Solutions:
+
+
 ##### A. Use Authentication Token
 export HF_TOKEN="hf_YourToken"
 python modelanalyzer.py model
@@ -1506,18 +1526,23 @@ sleep 60
 python modelanalyzer.py model
 
 ##### C. Reduce Request Frequency
+```bash
 #Add delays in batch scripts
 for model in model1 model2 model3; do
     python modelanalyzer.py $model
     sleep 5
 done
+```
 
 #### Issue 4: "matplotlib not available"
 Symptoms:
 ⚠️  Visualization skipped - matplotlib not available
    Install with: pip install matplotlib
 
+   
 Solutions:
+
+
 ##### A. Install matplotlib
 pip install matplotlib
 
@@ -1533,14 +1558,17 @@ Symptoms:
 ⚠️  1 warning(s):
   - Could not calculate parameters
 
+
 Solutions:
+
+
 ##### A. Check Model Architecture
 
 Some custom architectures aren't supported
 Use --verbose to see details
 
 ##### B. Report Issue
-# Run with verbose mode
+#Run with verbose mode
 python modelanalyzer.py model --verbose > debug.log 2>&amp;1
 
 #Share debug.log for support
@@ -1549,7 +1577,10 @@ python modelanalyzer.py model --verbose > debug.log 2>&amp;1
 Symptoms:
 ❌ Error: Invalid output path: No write permission
 
+
 Solutions:
+
+
 ##### A. Check Directory Permissions
 #Linux/macOS
 ls -ld .
@@ -1569,7 +1600,10 @@ sudo python modelanalyzer.py model --export /protected/path/model.json
 Symptoms:
 ❌ Error: Insufficient disk space (< 10MB)
 
+
 Solutions:
+
+
 ##### A. Free Up Space
 #Check disk space
 df -h
@@ -1584,7 +1618,10 @@ python modelanalyzer.py model --export /path/with/space/model.json
 Symptoms:
 SSLError: [SSL: CERTIFICATE_VERIFY_FAILED]
 
+
 Solutions:
+
+
 ##### A. Update Certificates
 
 #macOS
@@ -1613,6 +1650,7 @@ python --version
 pip list | grep transformers
 
 ##### C. Use Virtual Environment
+```bash
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
 venv\Scripts\activate     # Windows
@@ -1621,6 +1659,7 @@ pip install transformers huggingface-hub
 Debug Mode
 Enable verbose logging:
 python modelanalyzer.py model --verbose
+```
 
 Capture full output:
 python modelanalyzer.py model --verbose > debug.log 2>&amp;1
@@ -1686,6 +1725,7 @@ Heuristic-based classification
 
 
 Example Detection Logic:
+```
 #LLaMA 3 detection (most specific)
 if re.search(r'llama-?3', model_id, re.IGNORECASE):
     return ModelFamily.LLAMA3
@@ -1697,6 +1737,7 @@ elif re.search(r'llama-?2', model_id, re.IGNORECASE):
 #Generic LLaMA detection (least specific)
 elif re.search(r'llama(?![23])', model_id, re.IGNORECASE):
     return ModelFamily.LLAMA
+```
 
 ### Parameter Calculation
 
@@ -1826,28 +1867,30 @@ Total ≈ 4 × Parameter_Memory + Activation_Memory
 Detection Methods:
 
 Config-based:
+```
 if config.quantization_config:
     quant_method = config.quantization_config.quant_method
     if "gptq" in quant_method:
         return QuantizationType.GPTQ
-
+```
 
 Model ID Pattern:
+```
 if "gptq" in model_id.lower():
     return QuantizationType.GPTQ
 elif "awq" in model_id.lower():
     return QuantizationType.AWQ
-
+```
 
 
 Supported Quantization Types:
 
-GPTQ (4-bit, 3-bit, 2-bit)
-AWQ (4-bit)
-GGUF (multiple variants)
-BitsAndBytes (4-bit, 8-bit)
-GGML
-EXL2
+- GPTQ (4-bit, 3-bit, 2-bit)
+- AWQ (4-bit)
+- GGUF (multiple variants)
+- BitsAndBytes (4-bit, 8-bit)
+- GGML
+- EXL2
 
 Attention Mechanism Detection
 Standard Attention:
@@ -1880,64 +1923,127 @@ Total = Base_Parameters - Base_FFN + MoE_FFN + Router
 
 
 ## 12. FAQ
-General Questions
+
+### General Questions
+
 Q: Do I need to download the model to analyze it?
 A: No. ModelAnalyzer only downloads small configuration files (config.json, tokenizer files), not the full model weights.
+
+
 Q: Does ModelAnalyzer work offline?
 A: No. It requires internet access to fetch model configurations from HuggingFace Hub.
+
+
 Q: Can I analyze private/local models?
 A: Only if they're hosted on HuggingFace Hub. Local models are not supported.
+
+
 Q: Is GPU required?
 A: No. ModelAnalyzer runs on CPU only.
+
+
 Q: How accurate are the parameter counts?
 A: Very accurate for standard architectures. Custom architectures may have slight variations.
+
+
 Q: How accurate are memory estimates?
 A: Estimates are theoretical minimums. Actual usage may be 10-20% higher due to framework overhead.
-Token Questions
+
+
+### Token Questions
+
+
 Q: When do I need a HuggingFace token?
 A: For gated models (LLaMA, Gemma, etc.) and private repositories.
+
+
 Q: How do I get a token?
 A: Visit https://huggingface.co/settings/tokens and create a "Read" token.
+
+
 Q: Is my token secure?
 A: Use environment variables or HuggingFace CLI login. Never commit tokens to Git.
+
+
 Q: Can I use the same token for multiple tools?
 A: Yes. HuggingFace tokens work across all HuggingFace tools.
-Model Questions
+
+
+### Model Questions
+
+
 Q: Why does my model show "unknown" family?
 A: The model family isn't in the detection patterns. The analysis still works.
+
+
 Q: Why is parameter count 0?
 A: The model has a custom architecture not supported by the calculator. Check --verbose output.
+
+
 Q: Why is tokenizer unavailable?
 A: Some models don't include tokenizers. Use --skip-tokenizer to suppress the warning.
+
+
 Q: Can I analyze fine-tuned models?
 A: Yes. ModelAnalyzer works with any model on HuggingFace Hub.
+
+
 Q: What about LoRA adapters?
 A: ModelAnalyzer analyzes base models. LoRA adapters are separate.
-Output Questions
+
+
+### Output Questions
+
+
 Q: Can I parse JSON output programmatically?
 A: Yes. Use --export and load with json.load().
+
+
 Q: Can I customize the visualization?
 A: Currently only simple and detailed styles. Custom styles require code modification.
+
+
 Q: Why is the visualization blurry?
 A: Default DPI is 300. Increase in code if needed.
+
+
 Q: Can I export to CSV?
 A: Not directly. Export to JSON and convert with a script.
-Performance Questions
+
+
+### Performance Questions
+
+
 Q: How long does analysis take?
 A: 2-10 seconds for most models. Slower for gated models or slow connections.
+
+
 Q: Can I speed up analysis?
 A: Use --skip-tokenizer and --quiet flags.
+
+
 Q: Can I analyze multiple models in parallel?
 A: Yes, but respect rate limits. Use delays between requests.
-Error Questions
+
+
+### Error Questions
+
+
 Q: What if analysis fails?
 A: Run with --verbose to see detailed error messages.
+
+
 Q: Why does it say "config load failed"?
 A: Check model ID, internet connection, and token (for gated models).
+
+
 Q: What if I get SSL errors?
-A: Update certificates: pip install --upgrade certifi
+A: Update certificates: pip install --upgrade certificate
+
 
 ## 13. Appendix
+
+
 ### A. Supported Model Architectures
 
 
@@ -2256,6 +2362,7 @@ Analysis failed (invalid model, network error, etc.)
 
 ### G. File Formats
 JSON Export Schema
+```
 {
   "model_id": "string",
   "model_family": "string",
@@ -2301,6 +2408,7 @@ JSON Export Schema
   },
   "analysis_timestamp": "string (ISO 8601)"
 }
+```
 
 ### H. Version History
 
