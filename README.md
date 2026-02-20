@@ -1,10 +1,10 @@
 # Model Analyzer - a tool to analyze LLM models (Transformer architecture) on HuggingFace
 
 
-ModelAnalyzer v2.0.2 - User Manual
-Author: Michael Stal, 2026
-Version: 2.0.2
-License: MIT
+- ModelAnalyzer v2.0.2 - User Manual
+- Author: Michael Stal, 2026
+- Version: 2.0.2
+- License: MIT
 
 ## Table of Contents
 
