@@ -6,69 +6,74 @@ Author: Michael Stal, 2026
 Version: 2.0.2
 License: MIT
 
-Table of Contents
+## Table of Contents
 
-Introduction
-What is ModelAnalyzer?
-How It Works
-Installation
-Basic Usage
-HuggingFace Token Configuration
-Command-Line Parameters
-Output and Results
-Advanced Usage Examples
-Troubleshooting
-Technical Details
-FAQ
-Appendix
+- Introduction
+- What is ModelAnalyzer?
+- How It Works
+- Installation
+- Basic Usage
+- HuggingFace Token Configuration
+- Command-Line Parameters
+- Output and Results
+- Advanced Usage Examples
+- Troubleshooting
+- Technical Details
+- FAQ
+- Appendix
 
 
-1. Introduction
+## 1. Introduction
+
 ModelAnalyzer is a comprehensive command-line tool for analyzing transformer-based language models from the HuggingFace Hub. It provides detailed insights into model architecture, memory requirements, capabilities, and more—without downloading the full model weights.
+
 Key Features
 
-🔍 Deep Architecture Analysis - Extract detailed model configuration
-💾 Memory Estimation - Calculate memory requirements for inference and training
-📊 Parameter Counting - Accurate parameter calculation for all architectures
-🎨 Visualization - Generate architecture diagrams
-📤 Export - Save analysis results as JSON or Markdown
-🔤 Tokenizer Analysis - Examine tokenizer configuration
-⚖️ Quantization Detection - Identify quantization methods
-🎭 MoE Support - Analyze Mixture-of-Experts models
-🚀 40+ Model Families - Support for GPT, LLaMA, Mistral, BERT, T5, and more
+- 🔍 Deep Architecture Analysis - Extract detailed model configuration
+- 💾 Memory Estimation - Calculate memory requirements for inference and training
+- 📊 Parameter Counting - Accurate parameter calculation for all architectures
+- 🎨 Visualization - Generate architecture diagrams
+- 📤 Export - Save analysis results as JSON or Markdown
+- 🔤 Tokenizer Analysis - Examine tokenizer configuration
+- ⚖️ Quantization Detection - Identify quantization methods
+- 🎭 MoE Support - Analyze Mixture-of-Experts models
+- 🚀 40+ Model Families - Support for GPT, LLaMA, Mistral, BERT, T5, and more
 
 
-2. What is ModelAnalyzer?
-Purpose
+## 2. What is ModelAnalyzer?
+
+### Purpose
+
 ModelAnalyzer helps researchers, engineers, and ML practitioners understand transformer models before deployment. It answers critical questions:
 
-How many parameters does this model have?
-How much memory will it require?
-What architecture does it use?
-Does it support long context?
-Is it quantized?
-What tokenizer does it use?
+- How many parameters does this model have?
+- How much memory will it require?
+- What architecture does it use?
+- Does it support long context?
+- Is it quantized?
+- What tokenizer does it use?
 
-Use Cases
+### Use Cases
 
-Model Selection - Compare models before downloading
-Resource Planning - Estimate GPU/CPU requirements
-Research - Study architecture patterns across model families
-Documentation - Generate technical specifications
-Debugging - Verify model configurations
-Education - Learn about transformer architectures
+- Model Selection - Compare models before downloading
+- Resource Planning - Estimate GPU/CPU requirements
+- Research - Study architecture patterns across model families
+- Documentation - Generate technical specifications
+- Debugging - Verify model configurations
+- Education - Learn about transformer architectures
 
-What It Does NOT Do
+### What It Does NOT Do
 
-❌ Download full model weights
-❌ Run inference or generate text
-❌ Fine-tune or train models
-❌ Modify model files
-❌ Require GPU
+- ❌ Download full model weights
+- ❌ Run inference or generate text
+- ❌ Fine-tune or train models
+- ❌ Modify model files
+- ❌ Require GPU
 
 
-3. How It Works
-Architecture
+## 3. How It Works
+
+### Architecture
 ┌─────────────────────────────────────────────────────────────┐
 │                    ModelAnalyzer v2.0.2                     │
 └─────────────────────────────────────────────────────────────┘
@@ -109,17 +114,17 @@ Architecture
 │  • Architecture Visualization (PNG)                         │
 └─────────────────────────────────────────────────────────────┘
 
-Analysis Process
+### Analysis Process
 
-Validation - Validates model ID format
-Config Loading - Downloads config.json from HuggingFace Hub
-Pattern Matching - Uses regex patterns to detect model family
-Architecture Parsing - Extracts dimensions, layers, heads, etc.
-Parameter Calculation - Computes total parameters based on architecture
-Memory Estimation - Calculates memory for different precisions
-Output Formatting - Presents results in requested format
+- Validation - Validates model ID format
+- Config Loading - Downloads config.json from HuggingFace Hub
+- Pattern Matching - Uses regex patterns to detect model family
+- Architecture Parsing - Extracts dimensions, layers, heads, etc.
+- Parameter Calculation - Computes total parameters based on architecture
+- Memory Estimation - Calculates memory for different precisions
+- Output Formatting - Presents results in requested format
 
-Supported Model Families
+### Supported Model Families
 
 
 
@@ -240,8 +245,9 @@ And 20+ more...
 
 
 
-4. Installation
-Prerequisites
+## 4. Installation
+
+### Prerequisites
 
 Python: 3.8 or higher
 Operating System: Linux, macOS, or Windows
@@ -252,18 +258,18 @@ Option A: Using pip (Recommended)
 # Install required packages
 pip install transformers huggingface-hub
 
-# Optional: Install visualization support
+#Optional: Install visualization support
 pip install matplotlib
 
-# Optional: Install progress bars
+#Optional: Install progress bars
 pip install tqdm
 
 Option B: Using conda
-# Create conda environment
+#Create conda environment
 conda create -n modelanalyzer python=3.10
 conda activate modelanalyzer
 
-# Install dependencies
+#Install dependencies
 conda install -c conda-forge transformers huggingface-hub matplotlib tqdm
 
 Option C: Using requirements.txt
@@ -279,14 +285,15 @@ pip install -r requirements.txt
 Step 2: Download ModelAnalyzer
 Save the modelanalyzer.py script to your working directory.
 Step 3: Verify Installation
-# Check Python version
+
+#Check Python version
 python --version
 
-# Verify dependencies
+#Verify dependencies
 python -c "import transformers; print(transformers.__version__)"
 python -c "import huggingface_hub; print(huggingface_hub.__version__)"
 
-# Test ModelAnalyzer
+#Test ModelAnalyzer
 python modelanalyzer.py --version
 
 Expected output:
@@ -306,32 +313,36 @@ Solution:
 pip install matplotlib
 
 
-5. Basic Usage
-Quickstart
-# Analyze a model (simplest form)
+## 5. Basic Usage
+
+### Quickstart
+
+#Analyze a model (simplest form)
 python modelanalyzer.py gpt2
 
-# Analyze with detailed output
+#Analyze with detailed output
 python modelanalyzer.py gpt2 --detailed
 
-# Analyze with visualization
+#Analyze with visualization
 python modelanalyzer.py gpt2 --visualize
 
 Basic Syntax
 python modelanalyzer.py <model_id> [OPTIONS]
 
-Model ID Formats
+### Model ID Formats
+
 ModelAnalyzer accepts various model ID formats:
-# Short form (official models)
+
+#Short form (official models)
 python modelanalyzer.py gpt2
 python modelanalyzer.py bert-base-uncased
 
-# Full form (organization/model)
+#Full form (organization/model)
 python modelanalyzer.py openai-community/gpt2-xl
 python modelanalyzer.py meta-llama/Llama-2-7b-hf
 python modelanalyzer.py mistralai/Mistral-7B-v0.1
 
-# Model variants
+#Model variants
 python modelanalyzer.py gpt2-medium
 python modelanalyzer.py gpt2-large
 python modelanalyzer.py gpt2-xl
@@ -407,13 +418,13 @@ Private Models - Your own private repositories
 Rate Limiting - Higher API rate limits with authentication
 
 
-When You DON'T Need a Token
+### When You DON'T Need a Token
 
 Public models (GPT-2, BERT, T5, etc.)
 Most open-source models
 Community models without restrictions
 
-How to Get a Token
+### How to Get a Token
 
 Create HuggingFace Account
 
@@ -421,7 +432,7 @@ Go to https://huggingface.co/join
 Sign up with email
 
 
-Generate Token
+### Generate Token
 
 Visit https://huggingface.co/settings/tokens
 Click "New token"
@@ -431,7 +442,7 @@ Click "Generate token"
 Copy the token (starts with hf_)
 
 
-Accept Model License (for gated models)
+### Accept Model License (for gated models)
 
 Visit model page (e.g., https://huggingface.co/meta-llama/Llama-2-7b-hf)
 Click "Agree and access repository"
@@ -439,116 +450,120 @@ Fill out form and submit
 
 
 
-Token Configuration Methods
+### Token Configuration Methods
+
 Method 1: Command-Line Argument (Recommended for One-Time Use)
 python modelanalyzer.py meta-llama/Llama-2-7b-hf --token hf_YourTokenHere
 
 Pros:
 
-Simple and direct
-No configuration needed
+- Simple and direct
+- No configuration needed
 
 Cons:
 
-Token visible in command history
-Must type token each time
+- Token visible in command history
+- Must type token each time
 
 Method 2: Environment Variable (Recommended for Regular Use)
 Linux/macOS:
-# Temporary (current session)
+
+#Temporary (current session)
 export HF_TOKEN="hf_YourTokenHere"
 python modelanalyzer.py meta-llama/Llama-2-7b-hf
 
-# Permanent (add to ~/.bashrc or ~/.zshrc)
+#Permanent (add to ~/.bashrc or ~/.zshrc)
 echo 'export HF_TOKEN="hf_YourTokenHere"' >> ~/.bashrc
 source ~/.bashrc
 
 Windows (Command Prompt):
-# Temporary
+#Temporary
 set HF_TOKEN=hf_YourTokenHere
 python modelanalyzer.py meta-llama/Llama-2-7b-hf
 
-# Permanent (System Environment Variables)
+#Permanent (System Environment Variables)
 setx HF_TOKEN "hf_YourTokenHere"
 
 Windows (PowerShell):
-# Temporary
+#Temporary
 $env:HF_TOKEN="hf_YourTokenHere"
 python modelanalyzer.py meta-llama/Llama-2-7b-hf
 
-# Permanent (User profile)
+#Permanent (User profile)
 [Environment]::SetEnvironmentVariable("HF_TOKEN", "hf_YourTokenHere", "User")
 
 Pros:
 
-Token not visible in command
-Works for all commands
-Secure
+- Token not visible in command
+- Works for all commands
+- Secure
 
 Cons:
 
-Requires shell configuration
+- Requires shell configuration
 
 Method 3: HuggingFace CLI Login (Recommended for Best Security)
-# Install HuggingFace CLI (if not installed)
+
+#Install HuggingFace CLI (if not installed)
 pip install huggingface-hub
 
-# Login (token stored securely)
+#Login (token stored securely)
 huggingface-cli login
 
-# Enter token when prompted
-# Token is saved to ~/.cache/huggingface/token
+#Enter token when prompted
+#Token is saved to ~/.cache/huggingface/token
 
-# Now use ModelAnalyzer without specifying token
+#Now use ModelAnalyzer without specifying token
 python modelanalyzer.py meta-llama/Llama-2-7b-hf
 
 Pros:
 
-Most secure method
-Token stored encrypted
-Works across all HuggingFace tools
-No need to specify token each time
+- Most secure method
+- Token stored encrypted
+- Works across all HuggingFace tools
+- No need to specify token each time
 
 Cons:
 
-Requires HuggingFace CLI installation
+- Requires HuggingFace CLI installation
 
-Token Security Best Practices
+### Token Security Best Practices
 ✅ DO:
 
-Use environment variables or HuggingFace CLI
-Keep tokens private
-Regenerate tokens periodically
-Use read-only tokens
+- Use environment variables or HuggingFace CLI
+- Keep tokens private
+- Regenerate tokens periodically
+- Use read-only tokens
 
 ❌ DON'T:
 
-Commit tokens to Git repositories
-Share tokens publicly
-Use write tokens for read-only tasks
-Hardcode tokens in scripts
+- Commit tokens to Git repositories
+- Share tokens publicly
+- Use write tokens for read-only tasks
+- Hardcode tokens in scripts
 
 Example: Analyzing Gated Model
-# Step 1: Accept license at https://huggingface.co/meta-llama/Llama-2-7b-hf
+#Step 1: Accept license at https://huggingface.co/meta-llama/Llama-2-7b-hf
 
-# Step 2: Login with HuggingFace CLI
+#Step 2: Login with HuggingFace CLI
 huggingface-cli login
 
-# Step 3: Analyze model
+#Step 3: Analyze model
 python modelanalyzer.py meta-llama/Llama-2-7b-hf --detailed --visualize
 
-# Alternative: Use token directly
+#Alternative: Use token directly
 python modelanalyzer.py meta-llama/Llama-2-7b-hf \
     --token hf_YourTokenHere \
     --detailed \
     --visualize
 
 
-7. Command-Line Parameters
-Complete Reference
+## 7. Command-Line Parameters
+
+### Complete Reference
 python modelanalyzer.py <model_id> [OPTIONS]
 
-Positional Arguments
+#### Positional Arguments
 
 
 
@@ -563,7 +578,7 @@ HuggingFace model identifier
 Yes
 
 
-Output Options
+#### Output Options
 
 
 
@@ -589,19 +604,19 @@ False
 
 
 Examples:
-# Summary output (default)
+#Summary output (default)
 python modelanalyzer.py gpt2
 
-# Detailed output
+#Detailed output
 python modelanalyzer.py gpt2 --detailed
 
-# Verbose mode (for debugging)
+#Verbose mode (for debugging)
 python modelanalyzer.py gpt2 --verbose
 
-# Quiet mode (errors only)
+#Quiet mode (errors only)
 python modelanalyzer.py gpt2 --quiet
 
-Export Options
+#### Export Options
 
 
 
@@ -633,7 +648,7 @@ python modelanalyzer.py gpt2 \
     --export gpt2.json \
     --export-markdown gpt2.md
 
-Visualization Options
+#### Visualization Options
 
 
 
@@ -676,7 +691,7 @@ python modelanalyzer.py gpt2 \
     --viz-style detailed \
     --viz-output gpt2_detailed.png
 
-Performance Options
+#### Performance Options
 
 
 
@@ -700,7 +715,7 @@ for model in gpt2 gpt2-medium gpt2-large; do
     python modelanalyzer.py $model --skip-tokenizer --quiet --export ${model}.json
 done
 
-Authentication Options
+#### Authentication Options
 
 
 
@@ -723,7 +738,7 @@ python modelanalyzer.py meta-llama/Llama-2-7b-hf --token hf_YourToken
 export HF_TOKEN="hf_YourToken"
 python modelanalyzer.py meta-llama/Llama-2-7b-hf
 
-Utility Options
+#### Utility Options
 
 
 
@@ -741,10 +756,10 @@ Show help message and exit
 
 
 Examples:
-# Show version
+#Show version
 python modelanalyzer.py --version
 
-# Show help
+#Show help
 python modelanalyzer.py --help
 
 Option Combinations
@@ -812,7 +827,7 @@ Tokenizer:
 
 ================================================================================
 
-Detailed Output
+### Detailed Output
 python modelanalyzer.py gpt2-xl --detailed
 
 Output Structure:
@@ -902,7 +917,7 @@ Model Size:          6.03 GB
 
 ================================================================================
 
-JSON Export
+#### JSON Export
 python modelanalyzer.py gpt2 --export gpt2_analysis.json
 
 File Structure:
@@ -963,29 +978,29 @@ File Structure:
   "analysis_timestamp": "2026-02-20T08:33:15.123456Z"
 }
 
-Markdown Export
+#### Markdown Export
 python modelanalyzer.py gpt2 --export-markdown gpt2_analysis.md
 
 File Content:
-# Model Analysis: gpt2
+#Model Analysis: gpt2
 
 **Analysis Date:** 2026-02-20T08:33:15.123456Z
 
-## Basic Information
+##Basic Information
 
 - **Family:** gpt2
 - **Type:** causal-lm
 - **Parameters:** 124.44M (124,439,808)
 - **Architecture:** GPT2LMHeadModel
 
-## Architecture
+##Architecture
 
 - **Layers:** 12
 - **Hidden Size:** 768
 - **Attention Heads:** 12
 - **Vocab Size:** 50,257
 
-## Memory Requirements
+##Memory Requirements
 
 | Precision | Size |
 |-----------|------|
@@ -994,17 +1009,18 @@ File Content:
 | INT8 | 0.12 GB |
 | INT4 | 0.06 GB |
 
-## Tokenizer
+##Tokenizer
 
 - **Type:** GPT2TokenizerFast
 - **Vocab Size:** 50,257
 - **Chat Template:** No
 
-Visualization Output
+#### Visualization Output
 Simple Style
 python modelanalyzer.py gpt2 --visualize --viz-style simple
 
 Generated Image: model_architecture.png
+
 Content:
 
 Input/Output flow
@@ -1082,7 +1098,7 @@ Memory (Parameters):
   INT8:  1.45 GB  ← Quantized inference
   INT4:  0.72 GB  ← Heavily quantized
 
-KV Cache
+#### KV Cache
 What it means:
 
 Memory for storing attention keys and values
@@ -1104,7 +1120,7 @@ Training (FP32):   25.31 GB
 
 Training (Adam): Includes Adam optimizer states (momentum + variance)
 
-9. Advanced Usage Examples
+## 9. Advanced Usage Examples
 Example 1: Comparing Multiple Models
 Scenario: Compare GPT-2 variants to choose the right size
 #!/bin/bash
@@ -1130,12 +1146,12 @@ results/
 
 Example 2: Analyzing LLaMA Models
 Scenario: Analyze LLaMA 2 with full documentation
-# Step 1: Accept license at https://huggingface.co/meta-llama/Llama-2-7b-hf
+#Step 1: Accept license at https://huggingface.co/meta-llama/Llama-2-7b-hf
 
-# Step 2: Set token
+#Step 2: Set token
 export HF_TOKEN="hf_YourTokenHere"
 
-# Step 3: Complete analysis
+#Step 3: Complete analysis
 python modelanalyzer.py meta-llama/Llama-2-7b-hf \
     --detailed \
     --visualize \
@@ -1144,7 +1160,7 @@ python modelanalyzer.py meta-llama/Llama-2-7b-hf \
     --export-markdown llama2_7b_report.md \
     --viz-output llama2_7b_architecture.png
 
-# Step 4: Analyze all sizes
+#Step 4: Analyze all sizes
 for size in 7b 13b 70b; do
     python modelanalyzer.py meta-llama/Llama-2-${size}-hf \
         --export llama2_${size}.json
@@ -1184,6 +1200,7 @@ Scenario: Analyze many models with error handling
 #!/bin/bash
 # batch_analyze.sh
 
+```bash
 models=(
     "gpt2"
     "bert-base-uncased"
@@ -1217,11 +1234,14 @@ for model in "${models[@]}"; do
 done
 
 echo "Batch processing complete!"
+```
 
 Example 5: Creating Model Documentation
 Scenario: Generate complete documentation for a model
+
+```bash
 #!/bin/bash
-# document_model.sh
+#document_model.sh
 
 MODEL="mistralai/Mistral-7B-v0.1"
 OUTPUT_DIR="docs/mistral-7b"
@@ -1253,6 +1273,7 @@ python modelanalyzer.py "$MODEL" \
 
 echo "Documentation generated in $OUTPUT_DIR/"
 ls -lh "$OUTPUT_DIR/"
+```
 
 Output Structure:
 docs/mistral-7b/
@@ -1264,12 +1285,12 @@ docs/mistral-7b/
 
 Example 6: Analyzing Quantized Models
 Scenario: Compare quantized versions
-# Analyze base model
+# `Analyze base model
 python modelanalyzer.py TheBloke/Llama-2-7B-GPTQ \
     --detailed \
     --export llama2_gptq.json
 
-# Check quantization info
+#Check quantization info
 python modelanalyzer.py TheBloke/Llama-2-7B-GPTQ | grep -A 5 "Quantization"
 
 Output:
@@ -1301,6 +1322,8 @@ Decision:
 80GB GPU: Can use FP16
 
 Example 8: Python Integration
+
+```python
 Scenario: Use ModelAnalyzer in Python scripts
 #!/usr/bin/env python3
 """
@@ -1370,6 +1393,7 @@ if __name__ == "__main__":
     ]
     
     compare_models(models)
+```
 
 Run:
 python analyze_models.py
@@ -1389,9 +1413,10 @@ gpt2-large                               774,030,080     1.44            1,024
 gpt2-xl                                  1,557,611,200   2.89            1,024          
 
 
-10. Troubleshooting
-Common Issues and Solutions
-Issue 1: "Failed to load model configuration"
+## 10. Troubleshooting
+
+### Common Issues and Solutions
+#### Issue 1: "Failed to load model configuration"
 Symptoms:
 ❌ Error: Failed to load model configuration
 
@@ -1402,167 +1427,168 @@ Troubleshooting:
   4. For gated models, provide --token
 
 Solutions:
-A. Check Model ID
-# Wrong
+##### A. Check Model ID
+#Wrong
 python modelanalyzer.py gpt-2  # Hyphen instead of number
 
-# Correct
+#Correct
 python modelanalyzer.py gpt2
 
-B. Verify Model Exists
+##### B. Verify Model Exists
 
 Visit https://huggingface.co/models
 Search for model
 Copy exact model ID
 
-C. Check Internet Connection
-# Test connectivity
+##### C. Check Internet Connection
+#Test connectivity
 curl -I https://huggingface.co
 
-# Test model access
+#Test model access
 curl -I https://huggingface.co/gpt2/resolve/main/config.json
 
-D. Use Token for Gated Models
+##### D. Use Token for Gated Models
 python modelanalyzer.py meta-llama/Llama-2-7b-hf --token hf_YourToken
 
-Issue 2: "Tokenizer unavailable"
+#### Issue 2: "Tokenizer unavailable"
 Symptoms:
 ⚠️  1 warning(s):
   - Tokenizer loading failed: ...
 
 Solutions:
-A. Skip Tokenizer (if not needed)
+##### A. Skip Tokenizer (if not needed)
 python modelanalyzer.py model --skip-tokenizer
 
-B. Check Tokenizer Files Exist
+##### B. Check Tokenizer Files Exist
 
 Some models don't have tokenizers
 This is normal for base models
 
-C. Update Transformers
+##### C. Update Transformers
 pip install --upgrade transformers
 
-Issue 3: "Rate limited by API"
+#### Issue 3: "Rate limited by API"
 Symptoms:
 ⚠️  Rate limited by API
 
 Solutions:
-A. Use Authentication Token
+##### A. Use Authentication Token
 export HF_TOKEN="hf_YourToken"
 python modelanalyzer.py model
 
-B. Wait and Retry
-# Wait 60 seconds
+##### B. Wait and Retry
+#Wait 60 seconds
 sleep 60
 python modelanalyzer.py model
 
-C. Reduce Request Frequency
-# Add delays in batch scripts
+##### C. Reduce Request Frequency
+#Add delays in batch scripts
 for model in model1 model2 model3; do
     python modelanalyzer.py $model
     sleep 5
 done
 
-Issue 4: "matplotlib not available"
+#### Issue 4: "matplotlib not available"
 Symptoms:
 ⚠️  Visualization skipped - matplotlib not available
    Install with: pip install matplotlib
 
 Solutions:
-A. Install matplotlib
+##### A. Install matplotlib
 pip install matplotlib
 
-B. Install with conda
+##### B. Install with conda
 conda install matplotlib
 
-C. Skip Visualization
-# Don't use --visualize flag
+##### C. Skip Visualization
+#Don't use --visualize flag
 python modelanalyzer.py model
 
-Issue 5: "Could not calculate parameters"
+#### Issue 5: "Could not calculate parameters"
 Symptoms:
 ⚠️  1 warning(s):
   - Could not calculate parameters
 
 Solutions:
-A. Check Model Architecture
+##### A. Check Model Architecture
 
 Some custom architectures aren't supported
 Use --verbose to see details
 
-B. Report Issue
+##### B. Report Issue
 # Run with verbose mode
 python modelanalyzer.py model --verbose > debug.log 2>&amp;1
 
-# Share debug.log for support
+#Share debug.log for support
 
-Issue 6: Permission Denied (Output Files)
+#### Issue 6: Permission Denied (Output Files)
 Symptoms:
 ❌ Error: Invalid output path: No write permission
 
 Solutions:
-A. Check Directory Permissions
-# Linux/macOS
+##### A. Check Directory Permissions
+#Linux/macOS
 ls -ld .
 chmod u+w .
 
-# Windows
+#Windows
 icacls .
 
-B. Use Different Output Directory
+##### B. Use Different Output Directory
 python modelanalyzer.py model --export ~/results/model.json
 
-C. Run with Appropriate Permissions
-# Linux/macOS (avoid sudo if possible)
+##### C. Run with Appropriate Permissions
+#Linux/macOS (avoid sudo if possible)
 sudo python modelanalyzer.py model --export /protected/path/model.json
 
-Issue 7: Memory/Disk Space Issues
+#### Issue 7: Memory/Disk Space Issues
 Symptoms:
 ❌ Error: Insufficient disk space (< 10MB)
 
 Solutions:
-A. Free Up Space
-# Check disk space
+##### A. Free Up Space
+#Check disk space
 df -h
 
-# Clean up
+#Clean up
 rm -rf ~/.cache/huggingface/hub/*  # Clear HF cache
 
-B. Use Different Output Location
+##### B. Use Different Output Location
 python modelanalyzer.py model --export /path/with/space/model.json
 
-Issue 8: SSL/Certificate Errors
+#### Issue 8: SSL/Certificate Errors
 Symptoms:
 SSLError: [SSL: CERTIFICATE_VERIFY_FAILED]
 
 Solutions:
-A. Update Certificates
-# macOS
+##### A. Update Certificates
+
+#macOS
 /Applications/Python\ 3.x/Install\ Certificates.command
 
-# Linux
+#Linux
 sudo apt-get install ca-certificates
 
-B. Update Python Packages
+##### B. Update Python Packages
 pip install --upgrade certifi requests urllib3
 
-Issue 9: Import Errors
+#### Issue 9: Import Errors
 Symptoms:
 ModuleNotFoundError: No module named 'transformers'
 
 Solutions:
-A. Install Dependencies
+##### A. Install Dependencies
 pip install transformers huggingface-hub
 
-B. Check Python Environment
-# Verify you're using correct Python
+##### B. Check Python Environment
+#Verify you're using correct Python
 which python
 python --version
 
-# Check installed packages
+#Check installed packages
 pip list | grep transformers
 
-C. Use Virtual Environment
+##### C. Use Virtual Environment
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
 venv\Scripts\activate     # Windows
@@ -1576,16 +1602,16 @@ Capture full output:
 python modelanalyzer.py model --verbose > debug.log 2>&amp;1
 
 Check specific issues:
-# Config loading
+#Config loading
 python modelanalyzer.py model --verbose 2>&amp;1 | grep -A 5 "Loading configuration"
 
-# Tokenizer loading
+#Tokenizer loading
 python modelanalyzer.py model --verbose 2>&amp;1 | grep -A 5 "Loading tokenizer"
 
-# Parameter calculation
+#Parameter calculation
 python modelanalyzer.py model --verbose 2>&amp;1 | grep -A 5 "Calculating parameters"
 
-Getting Help
+#### Getting Help
 
 Check Documentation
 python modelanalyzer.py --help
@@ -1603,14 +1629,15 @@ Verify model files exist
 
 
 Test with Known Model
-# Test with GPT-2 (always works)
+#Test with GPT-2 (always works)
 python modelanalyzer.py gpt2
 
 
 
 
-11. Technical Details
-Architecture Detection
+## 11. Technical Details
+
+### Architecture Detection
 ModelAnalyzer uses a multi-stage detection process:
 
 Model ID Pattern Matching
@@ -1620,14 +1647,14 @@ Case-insensitive matching
 Priority-based (most specific first)
 
 
-Config Inspection
+### Config Inspection
 
 model_type field
 architectures list
 Custom architecture fields
 
 
-Fallback Detection
+### Fallback Detection
 
 Architecture string analysis
 Heuristic-based classification
@@ -1635,20 +1662,21 @@ Heuristic-based classification
 
 
 Example Detection Logic:
-# LLaMA 3 detection (most specific)
+#LLaMA 3 detection (most specific)
 if re.search(r'llama-?3', model_id, re.IGNORECASE):
     return ModelFamily.LLAMA3
 
-# LLaMA 2 detection
+#LLaMA 2 detection
 elif re.search(r'llama-?2', model_id, re.IGNORECASE):
     return ModelFamily.LLAMA2
 
-# Generic LLaMA detection (least specific)
+#Generic LLaMA detection (least specific)
 elif re.search(r'llama(?![23])', model_id, re.IGNORECASE):
     return ModelFamily.LLAMA
 
-Parameter Calculation
-Decoder-Only Models (GPT, LLaMA, etc.)
+### Parameter Calculation
+
+#### Decoder-Only Models (GPT, LLaMA, etc.)
 Formula:
 Total Parameters = 
     Embedding Parameters +
@@ -1700,7 +1728,7 @@ LM Head = 50,257 × 768 = 38,597,376 (tied, so not counted)
 
 Total = 38,597,376 + 84,971,520 + 1,536 = 123,570,432
 
-Encoder-Decoder Models (T5, BART)
+#### Encoder-Decoder Models (T5, BART)
 Formula:
 Total Parameters =
     Encoder Embedding +
@@ -1715,7 +1743,7 @@ Decoder Layer includes Cross-Attention:
     FFN +
     3 × LayerNorm
 
-Vision Models (ViT)
+#### Vision Models (ViT)
 Formula:
 Total Parameters =
     Patch Embedding +
@@ -1727,7 +1755,7 @@ Total Parameters =
 Patch Embedding = (channels × patch_size²) × hidden_size
 Position Embedding = (num_patches + 1) × hidden_size
 
-Memory Estimation
+#### Memory Estimation
 Parameter Memory
 Memory (bytes) = num_parameters × bytes_per_param
 
@@ -1738,7 +1766,7 @@ Precision Mapping:
     INT8: 1 byte
     INT4: 0.5 bytes
 
-Activation Memory
+#### Activation Memory
 Activation Memory ≈ 2 × hidden_size × seq_length × num_layers × bytes_per_activation
 
 For FP16: bytes_per_activation = 2
@@ -1770,7 +1798,7 @@ Adam Optimizer States = 2 × Parameters (momentum + variance)
 
 Total ≈ 4 × Parameter_Memory + Activation_Memory
 
-Quantization Detection
+### Quantization Detection
 Detection Methods:
 
 Config-based:
@@ -1827,7 +1855,7 @@ Router Parameters = hidden_size × num_experts
 Total = Base_Parameters - Base_FFN + MoE_FFN + Router
 
 
-12. FAQ
+## 12. FAQ
 General Questions
 Q: Do I need to download the model to analyze it?
 A: No. ModelAnalyzer only downloads small configuration files (config.json, tokenizer files), not the full model weights.
@@ -1885,8 +1913,8 @@ A: Check model ID, internet connection, and token (for gated models).
 Q: What if I get SSL errors?
 A: Update certificates: pip install --upgrade certifi
 
-13. Appendix
-A. Supported Model Architectures
+## 13. Appendix
+### A. Supported Model Architectures
 
 
 
@@ -1986,7 +2014,7 @@ ViT
 google/vit-base-patch16-224
 
 
-B. Memory Requirements by Model Size
+### B. Memory Requirements by Model Size
 
 
 
@@ -2071,7 +2099,7 @@ Mixtral 8x7B
 21.85 GB
 
 
-C. Typical Context Lengths
+### C. Typical Context Lengths
 
 
 
@@ -2136,31 +2164,31 @@ Gemma
 N/A
 
 
-D. Command-Line Reference
-# Basic usage
+### D. Command-Line Reference
+#Basic usage
 python modelanalyzer.py <model_id>
 
-# Output control
+#Output control
 python modelanalyzer.py <model_id> [--detailed] [--verbose] [--quiet]
 
-# Export
+#Export
 python modelanalyzer.py <model_id> --export <file.json>
 python modelanalyzer.py <model_id> --export-markdown <file.md>
 
-# Visualization
+#Visualization
 python modelanalyzer.py <model_id> --visualize [--viz-style simple|detailed] [--viz-output <file.png>]
 
-# Performance
+#Performance
 python modelanalyzer.py <model_id> --skip-tokenizer
 
-# Authentication
+#Authentication
 python modelanalyzer.py <model_id> --token <hf_token>
 
-# Utility
+#Utility
 python modelanalyzer.py --version
 python modelanalyzer.py --help
 
-E. Environment Variables
+### E. Environment Variables
 
 
 
@@ -2185,7 +2213,7 @@ Transformers cache directory
 ~/.cache/transformers
 
 
-F. Exit Codes
+### F. Exit Codes
 
 
 
@@ -2202,7 +2230,7 @@ Success
 Analysis failed (invalid model, network error, etc.)
 
 
-G. File Formats
+### G. File Formats
 JSON Export Schema
 {
   "model_id": "string",
@@ -2250,7 +2278,7 @@ JSON Export Schema
   "analysis_timestamp": "string (ISO 8601)"
 }
 
-H. Version History
+### H. Version History
 
 
 
@@ -2280,7 +2308,7 @@ Complete rewrite, added MoE support, visualization
 Initial release
 
 
-I. License
+### I. License
 MIT License
 
 Copyright (c) 2026 Michael Stal
@@ -2303,7 +2331,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-J. Contact and Support
+### J. Contact and Support
 Author: Michael StalYear: 2026Version: 2.0.2
 For issues, questions, or contributions:
 
@@ -2311,6 +2339,7 @@ Check this manual first
 Run with --verbose for debugging
 Test with a known model (e.g., gpt2)
 
-
-End of Manual
-ModelAnalyzer v2.0.2 - Comprehensive Transformer Model Analysis Tool© 2026 Michael Stal - MIT License
+ModelAnalyzer v2.0.2 
+- Comprehensive Transformer Model Analysis Tool
+- © 2026 Michael Stal
+- MIT License
