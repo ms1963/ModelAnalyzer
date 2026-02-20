@@ -406,10 +406,11 @@ Tokenizer:
 ```
 
 ## 6. HuggingFace Token Configuration
-When Do You Need a Token?
+
+### When Do You Need a Token?
 A HuggingFace token is required for:
 
-Gated Models - Models requiring license acceptance
+- Gated Models - Models requiring license acceptance
 
 LLaMA 2, LLaMA 3
 Some Mistral models
@@ -417,9 +418,9 @@ Gemma models
 Other restricted models
 
 
-Private Models - Your own private repositories
+- Private Models - Your own private repositories
 
-Rate Limiting - Higher API rate limits with authentication
+- Rate Limiting - Higher API rate limits with authentication
 
 
 ### When You DON'T Need a Token
@@ -678,18 +679,18 @@ detailed
 
 
 Examples:
-# Create visualization (default detailed style)
+#Create visualization (default detailed style)
 python modelanalyzer.py gpt2 --visualize
 
-# Simple visualization
+#Simple visualization
 python modelanalyzer.py gpt2 --visualize --viz-style simple
 
-# Custom output file
+#Custom output file
 python modelanalyzer.py gpt2 \
     --visualize \
     --viz-output gpt2_architecture.png
 
-# Detailed visualization with custom name
+#Detailed visualization with custom name
 python modelanalyzer.py gpt2 \
     --visualize \
     --viz-style detailed \
@@ -711,10 +712,11 @@ False
 
 
 Examples:
-# Skip tokenizer for faster analysis
+
+#Skip tokenizer for faster analysis
 python modelanalyzer.py gpt2 --skip-tokenizer
 
-# Useful for batch processing
+#Useful for batch processing
 for model in gpt2 gpt2-medium gpt2-large; do
     python modelanalyzer.py $model --skip-tokenizer --quiet --export ${model}.json
 done
@@ -735,10 +737,10 @@ $HF_TOKEN env var
 
 
 Examples:
-# Use token from command line
+#Use token from command line
 python modelanalyzer.py meta-llama/Llama-2-7b-hf --token hf_YourToken
 
-# Use token from environment variable (recommended)
+#Use token from environment variable (recommended)
 export HF_TOKEN="hf_YourToken"
 python modelanalyzer.py meta-llama/Llama-2-7b-hf
 
