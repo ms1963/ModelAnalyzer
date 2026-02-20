@@ -2356,12 +2356,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ### J. Contact and Support
-Author: Michael StalYear: 2026Version: 2.0.2
+
+
+Author: Michael Stal
+
+Year: 2026Version: 2.0.2
+
+
 For issues, questions, or contributions:
 
-Check this manual first
-Run with --verbose for debugging
-Test with a known model (e.g., gpt2)
+- Check this manual first
+
+- Run with --verbose for debugging
+
+- Test with a known model (e.g., gpt2)
 
 ModelAnalyzer v2.0.2 
 - Comprehensive Transformer Model Analysis Tool
